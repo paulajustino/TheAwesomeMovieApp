@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TheAwesomeMovieApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="share_button_label">Compartilhar</string>
+    <string name="movie_imageView_content_description">image movie</string>
 </resources>

@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="corduroy_500">#6A8784</color>
+    <color name="corduroy_700">#4E6260</color>
+    <color name="red_400">#A96464</color>
+    <color name="red_900">#531B27</color>
 </resources>
