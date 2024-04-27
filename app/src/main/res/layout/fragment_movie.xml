@@ -23,22 +23,22 @@
                 android:layout_height="200dp"
                 android:contentDescription="@string/movie_imageView_content_description"
                 android:scaleType="centerCrop"
+                android:src="@drawable/image_movie"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/movie_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/text_margin"
-                android:text="titulo teste"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textColor="#050505"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/movie_imageView" />
+                app:layout_constraintTop_toBottomOf="@id/movie_imageView"
+                tools:text="titulo teste" />
 
             <TextView
                 android:id="@+id/movie_content"
@@ -47,22 +47,25 @@
                 android:layout_margin="@dimen/text_margin"
                 android:ellipsize="end"
                 android:maxLength="140"
-                android:text="Aqui está um texto com exatamente 140 caracteres! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididundda"
                 android:textAppearance="?attr/textAppearanceListItem"
                 app:layout_constraintBottom_toTopOf="@id/share_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/movie_title" />
+                app:layout_constraintTop_toBottomOf="@+id/movie_title"
+                tools:text="Aqui está um texto com exatamente 140 caracteres! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididundda" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/share_button"
-                style="@style/Widget.AppCompat.Button"
+                style="@style/Theme.TheAwesomeMovieApp.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/share_button_label"
+                android:layout_margin="@dimen/text_margin"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_share"
+                android:contentDescription="@string/share_button_content_description"
+                android:background="@drawable/rounded_button_background"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

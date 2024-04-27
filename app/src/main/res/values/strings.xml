@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">TheAwesomeMovieApp</string>
+    <string name="app_name_title">The Awesome Movie</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="share_button_label">Compartilhar</string>
-    <string name="movie_imageView_content_description">image movie</string>
+    <string name="movie_imageView_content_description">imagem do filme</string>
+    <string name="share_button_content_description">compartilhar</string>
 </resources>

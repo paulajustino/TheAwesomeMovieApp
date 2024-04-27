@@ -15,5 +15,18 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
     </style>
 
-    <style name="Theme.TheAwesomeMovieApp" parent="Base.Theme.TheAwesomeMovieApp" />
+    <style name="Theme.TheAwesomeMovieApp.NoActionBar" parent="Base.Theme.TheAwesomeMovieApp">
+        <item name="android:windowFullscreen">true</item>
+        <!-- desabilita titulo do app na action bar -->
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.TheAwesomeMovieApp.Button" parent="Widget.AppCompat.Button.Small">
+        <item name="android:background">?attr/colorPrimary</item>
+    </style>
+
+    <style name="Theme.TheAwesomeMovieApp.ActionBar" parent="Widget.AppCompat.ActionBar">
+        <item name="android:textColorSecondary">@color/white</item>
+
+    </style>
 </resources>

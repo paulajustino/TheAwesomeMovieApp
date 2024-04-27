@@ -52,4 +52,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // Carrousel
+    implementation(libs.me.relex.circleindicator)
+    implementation(libs.imaginativeworld.whynotimagecarousel)
 }

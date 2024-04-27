@@ -1,63 +1,45 @@
 package com.example.theawesomemovieapp
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.theawesomemovieapp.databinding.FragmentMovieListBinding
 import com.example.theawesomemovieapp.placeholder.PlaceholderContent
 
-/**
- * A fragment representing a list of Items.
- */
-class MoviesFragment : Fragment() {
+class MoviesFragment : Fragment(), MovieItemListener {
 
     private var columnCount = 1
+    private lateinit var binding: FragmentMovieListBinding
     val viewModel: MovieViewModel by activityViewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_movie_list, container, false)
+    ): View {
+        binding = FragmentMovieListBinding.inflate(layoutInflater)
 
-        // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                adapter = MyMovieRecyclerViewAdapter(PlaceholderContent.ITEMS)
-            }
-        }
-        return view
+        setupRecyclerView()
+
+        return binding.root
     }
 
-    companion object {
-
-        // TODO: Customize parameter argument names
-        const val ARG_COLUMN_COUNT = "column-count"
-
-        // TODO: Customize parameter initialization
-        @JvmStatic
-        fun newInstance(columnCount: Int) =
-            MoviesFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_COLUMN_COUNT, columnCount)
-                }
+    private fun setupRecyclerView() {
+        with(binding.root) {
+            layoutManager = when {
+                columnCount <= 1 -> LinearLayoutManager(context)
+                else -> GridLayoutManager(context, columnCount)
             }
+            adapter = MyMovieRecyclerViewAdapter(PlaceholderContent.ITEMS, this@MoviesFragment)
+        }
+    }
+
+    override fun onItemSelected(position: Int) {
+        findNavController().navigate(R.id.movieDetailsFragment)
     }
 }
