@@ -1,94 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#B7C3C2"
-    android:padding="10dp"
-    tools:context=".MovieDetailsFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/movie_details_cardView"
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.theawesomemovieapp.MovieViewModel" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#B7C3C2"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp"
+        tools:context=".MovieDetailsFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <include
+            android:id="@+id/progressBar"
+            layout="@layout/loading_view" />
+
+        <include
+            android:id="@+id/errorMessage"
+            layout="@layout/error_view" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/movieDetailsCardView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="visible">
 
-            <ImageView
-                android:id="@+id/movie_imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="250dp"
-                android:contentDescription="@string/movie_imageView_content_description"
-                android:scaleType="centerCrop"
-                android:src="@drawable/image_movie"
-                app:layout_constraintBottom_toTopOf="@id/movie_info"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <LinearLayout
-                android:id="@+id/movie_info"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toTopOf="@id/movie_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/movie_imageView">
+                android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/movie_title"
-                    android:layout_width="0dp"
+                <ImageView
+                    android:id="@+id/movieImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:contentDescription="@string/movie_imageView_content_description"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/image_movie"
+                    app:layout_constraintBottom_toTopOf="@id/movieInfo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/movieInfo"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:layout_weight="2"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
+                    android:orientation="horizontal"
                     app:layout_constraintBottom_toTopOf="@id/movie_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/movie_imageView"
-                    tools:text="Titulo Teste" />
+                    app:layout_constraintTop_toBottomOf="@id/movieImageView">
 
-                <RatingBar
-                    android:id="@+id/movie_ratingBar"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="10dp"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:layout_height="wrap_content"
-                    android:numStars="5"
-                    app:layout_constraintBottom_toBottomOf="@id/movie_title"
+                    <TextView
+                        android:id="@+id/movieTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="2"
+                        android:text="@{viewModel.movieDetailsLiveData.title}"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="24sp"
+                        app:layout_constraintBottom_toTopOf="@id/movie_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/movieImageView"
+                        tools:text="Titulo Teste" />
+
+                    <RatingBar
+                        android:id="@+id/movie_ratingBar"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:numStars="5"
+                        app:layout_constraintBottom_toBottomOf="@id/movieTitle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/movieTitle"
+                        app:layout_constraintTop_toTopOf="@id/movieTitle" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/movie_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@{viewModel.movieDetailsLiveData.content}"
+                    app:layout_constraintBottom_toTopOf="@id/carousel"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/movie_title"
-                    app:layout_constraintTop_toTopOf="@id/movie_title" />
-            </LinearLayout>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/movieInfo" />
 
-            <TextView
-                android:id="@+id/movie_content"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintBottom_toTopOf="@id/carousel"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/movie_info" />
+                <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+                    android:id="@+id/carousel"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/movie_content" />
 
-            <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-                android:id="@+id/carousel"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/movie_content" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
-</LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</layout>

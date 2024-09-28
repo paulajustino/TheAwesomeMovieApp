@@ -1,22 +1,28 @@
 package com.example.theawesomemovieapp
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-
-import com.example.theawesomemovieapp.placeholder.PlaceholderContent.PlaceholderItem
+import androidx.recyclerview.widget.RecyclerView
 import com.example.theawesomemovieapp.databinding.FragmentMovieBinding
+import com.example.theawesomemovieapp.placeholder.PlaceholderContent.PlaceholderItem
 
 interface MovieItemListener {
     fun onItemSelected(position: Int)
 }
 
 class MyMovieRecyclerViewAdapter(
-    private val values: List<PlaceholderItem>,
     private val listener: MovieItemListener,
 ) : RecyclerView.Adapter<MyMovieRecyclerViewAdapter.ViewHolder>() {
+
+    private val values: MutableList<PlaceholderItem> = ArrayList()
+
+    fun updateData(movieList: MutableList<PlaceholderItem>) {
+        values.apply {
+            clear()
+            addAll(movieList)
+        }
+        notifyDataSetChanged()
+    }
 
     // infla a view do item
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,23 +40,24 @@ class MyMovieRecyclerViewAdapter(
     // carrega as informações na view do item
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.idView.text = item.id
-        holder.contentView.text = item.content
 
-        holder.root.setOnClickListener {
+        holder.bindItem(item)
+        holder.view.setOnClickListener {
             listener.onItemSelected(position)
         }
     }
 
     override fun getItemCount(): Int = values.size
 
-    inner class ViewHolder(binding: FragmentMovieBinding) : RecyclerView.ViewHolder(binding.root) {
-        val idView: TextView = binding.movieTitle
-        val contentView: TextView = binding.movieContent
-        val root: View = binding.root
+    inner class ViewHolder(private val binding: FragmentMovieBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        val view = binding.root
 
-        override fun toString(): String {
-            return super.toString() + " '" + contentView.text + "'"
+        fun bindItem(item: PlaceholderItem) {
+            binding.movieItem = item
+            // executePendingBindings() para nao esperar até o próximo ciclo de redesenho da tela
+            // para atualizar a informação do item e garantir que os dados estao corretos
+            binding.executePendingBindings()
         }
     }
 }

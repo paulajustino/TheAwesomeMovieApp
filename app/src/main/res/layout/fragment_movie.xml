@@ -1,72 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#B7C3C2"
-    android:orientation="horizontal">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/movie_cardView"
+    <data>
+
+        <variable
+            name="movieItem"
+            type="com.example.theawesomemovieapp.placeholder.PlaceholderContent.PlaceholderItem" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_margin="20dp">
+        android:layout_height="wrap_content"
+        android:background="#B7C3C2"
+        android:orientation="horizontal">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/movieCardView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="400dp"
+            android:layout_margin="20dp">
 
-            <ImageView
-                android:id="@+id/movie_imageView"
-                android:layout_width="0dp"
-                android:layout_height="200dp"
-                android:contentDescription="@string/movie_imageView_content_description"
-                android:scaleType="centerCrop"
-                android:src="@drawable/image_movie"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/movie_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_margin"
-                android:textAppearance="?attr/textAppearanceListItem"
-                android:textColor="#050505"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/movie_imageView"
-                tools:text="titulo teste" />
-
-            <TextView
-                android:id="@+id/movie_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_margin="@dimen/text_margin"
-                android:ellipsize="end"
-                android:maxLength="140"
-                android:textAppearance="?attr/textAppearanceListItem"
-                app:layout_constraintBottom_toTopOf="@id/share_button"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/movie_title"
-                tools:text="Aqui está um texto com exatamente 140 caracteres! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididundda" />
+                android:layout_height="match_parent">
 
-            <ImageButton
-                android:id="@+id/share_button"
-                style="@style/Theme.TheAwesomeMovieApp.Button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_margin"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_share"
-                android:contentDescription="@string/share_button_content_description"
-                android:background="@drawable/rounded_button_background"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                <ImageView
+                    android:id="@+id/movieImageView"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:contentDescription="@string/movie_imageView_content_description"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/image_movie"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
-</LinearLayout>
+                <TextView
+                    android:id="@+id/movieTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/text_margin"
+                    android:text="@{movieItem.id}"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:textColor="#050505"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/movieImageView"
+                    tools:text="titulo teste" />
+
+                <TextView
+                    android:id="@+id/movieContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/text_margin"
+                    android:ellipsize="end"
+                    android:maxLength="140"
+                    android:text="@{movieItem.content}"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    app:layout_constraintBottom_toTopOf="@id/shareButton"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/movieTitle"
+                    tools:text="Aqui está um texto com exatamente 140 caracteres! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididundda" />
+
+                <ImageButton
+                    android:id="@+id/shareButton"
+                    style="@style/Theme.TheAwesomeMovieApp.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/text_margin"
+                    android:background="@drawable/rounded_button_background"
+                    android:contentDescription="@string/share_button_content_description"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_share"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</layout>
