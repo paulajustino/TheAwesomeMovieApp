@@ -18,3 +18,15 @@
 - Navigation Components: Navigation Graph, NavHostFragment, NavController
 - Integration of App Bar and Navigation Drawer with Navigation Components
 - ViewModel
+
+<h2>Version 2.0</h2>
+
+### Topics studied in this version:
+
+- ViewModel
+- Databinding
+- LiveData
+- Observable
+- Refactoring
+- States
+- Gradle
