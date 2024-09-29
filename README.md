@@ -38,5 +38,11 @@
 - Permissions
 - APIRest
 - Retrofit
+- Moshi
 - Glide
 - Refactoring
+- local.properties
+- BuildConfig
+- MediatorLiveData
+- Carousel
+- RatingBar
