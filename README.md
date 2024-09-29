@@ -30,3 +30,13 @@
 - Refactoring
 - States
 - Gradle
+
+<h2>Version 3.0</h2>
+
+### Topics studied in this version:
+
+- Permissions
+- APIRest
+- Retrofit
+- Glide
+- Refactoring

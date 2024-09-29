@@ -1,4 +1,4 @@
-package com.example.theawesomemovieapp
+package com.example.theawesomemovieapp.movieHome
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,27 +10,29 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.theawesomemovieapp.MovieHomeViewModel
+import com.example.theawesomemovieapp.R
+import com.example.theawesomemovieapp.data.MovieResponse
 import com.example.theawesomemovieapp.databinding.FragmentMovieListBinding
-import com.example.theawesomemovieapp.utils.Utils
 
-class MoviesFragment : Fragment(), MovieItemListener, StateView {
+class MoviesFragment : Fragment(), MovieItemListener {
 
     private var columnCount = 1
     private lateinit var binding: FragmentMovieListBinding
     private lateinit var adapter: MyMovieRecyclerViewAdapter
-    private val viewModel by navGraphViewModels<MovieViewModel>(R.id.movie_app_graph) {
+    private val viewModel by navGraphViewModels<MovieHomeViewModel>(R.id.movie_app_graph) {
         defaultViewModelProviderFactory
     }
-
-    override val progressBar get() = binding.progressBar
-    override val errorMessage get() = binding.errorMessage
-    override val data get() = binding.movieList
+    private lateinit var movieList: List<MovieResponse>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_movie_list, container, false)
+
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         adapter = MyMovieRecyclerViewAdapter(this)
 
@@ -52,27 +54,23 @@ class MoviesFragment : Fragment(), MovieItemListener, StateView {
 
     private fun initObservers() {
         with(viewModel) {
-            movieListLiveData.observe(viewLifecycleOwner) { adapter.updateData(it) }
-
-            navigationToMovieDetailLiveData.observe(viewLifecycleOwner) {
-                val action = MoviesFragmentDirections.actionMoviesFragmentToMovieDetailsFragment()
-                findNavController().navigate(action)
+            movieListLiveData.observe(viewLifecycleOwner) { movieList ->
+                movieList?.let {
+                    adapter.updateData(it)
+                    this@MoviesFragment.movieList = it
+                }
             }
 
-            appStateMoviesLiveData.observe(viewLifecycleOwner) { state ->
-                state?.let {
-                    Utils.showState(
-                        this@MoviesFragment,
-                        isLoading = it == DataState.Loading,
-                        isSuccess = it == DataState.Success,
-                        isError = it == DataState.Error
-                    )
-                }
+            navigationToMovieDetailLiveData.observe(viewLifecycleOwner) { movieId ->
+                val action =
+                    MoviesFragmentDirections.actionMoviesFragmentToMovieDetailsFragment(movieId)
+                findNavController().navigate(action)
             }
         }
     }
 
     override fun onItemSelected(position: Int) {
-        viewModel.onMovieSelected(position)
+        val selectedMovieId = movieList[position].id.toString()
+        viewModel.onMovieSelected(selectedMovieId)
     }
 }

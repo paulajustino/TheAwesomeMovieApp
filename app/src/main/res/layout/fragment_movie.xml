@@ -7,7 +7,7 @@
 
         <variable
             name="movieItem"
-            type="com.example.theawesomemovieapp.placeholder.PlaceholderContent.PlaceholderItem" />
+            type="com.example.theawesomemovieapp.data.MovieResponse" />
     </data>
 
     <LinearLayout
@@ -32,7 +32,7 @@
                     android:layout_height="200dp"
                     android:contentDescription="@string/movie_imageView_content_description"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/image_movie"
+                    app:srcUrl="@{movieItem.imagePath}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +42,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/text_margin"
-                    android:text="@{movieItem.id}"
+                    android:textSize="24sp"
+                    android:text="@{movieItem.title}"
                     android:textAppearance="?attr/textAppearanceListItem"
                     android:textColor="#050505"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -57,6 +58,7 @@
                     android:layout_margin="@dimen/text_margin"
                     android:ellipsize="end"
                     android:maxLength="140"
+                    android:textSize="18sp"
                     android:text="@{movieItem.content}"
                     android:textAppearance="?attr/textAppearanceListItem"
                     app:layout_constraintBottom_toTopOf="@id/shareButton"

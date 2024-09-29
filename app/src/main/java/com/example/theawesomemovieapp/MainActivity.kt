@@ -55,7 +55,6 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.moviesFragment -> {
                     binding.toolbarTitle = getString(R.string.app_name_title)
-
                 }
 
                 R.id.movieDetailsFragment -> {

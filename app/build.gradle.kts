@@ -1,8 +1,11 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.kotlinKapt)
     alias(libs.plugins.navigationSafeArgs)
+    alias(libs.plugins.kotlinKsp)
 }
 
 android {
@@ -17,6 +20,16 @@ android {
         versionName = "2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").reader())
+        // Acessa a chave TMDB_API_KEY do local.properties
+        buildConfigField("String", "TMDB_API_KEY", "\"${properties.getProperty("TMDB_API_KEY")}\"")
+    }
+
+    buildFeatures {
+        // Habilita a geração de campos personalizados para BuildConfig
+        buildConfig = true
     }
 
     buildTypes {
@@ -59,4 +72,14 @@ dependencies {
     // Carrousel
     implementation(libs.me.relex.circleindicator)
     implementation(libs.imaginativeworld.whynotimagecarousel)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.moshi.kotlin)
+    implementation(libs.converter.moshi)
+    ksp(libs.moshi.kotlin.codegen)
+
+    // Glide
+    implementation(libs.glide)
+    ksp(libs.glide.compiler)
 }
