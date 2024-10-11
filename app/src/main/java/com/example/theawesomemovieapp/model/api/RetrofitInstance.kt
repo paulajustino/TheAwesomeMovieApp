@@ -1,4 +1,4 @@
-package com.example.theawesomemovieapp.utils
+package com.example.theawesomemovieapp.model.api
 
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory

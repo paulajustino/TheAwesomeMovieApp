@@ -7,7 +7,7 @@
 
         <variable
             name="movieItem"
-            type="com.example.theawesomemovieapp.data.MovieResponse" />
+            type="com.example.theawesomemovieapp.model.data.Movie" />
     </data>
 
     <LinearLayout
@@ -32,7 +32,7 @@
                     android:layout_height="200dp"
                     android:contentDescription="@string/movie_imageView_content_description"
                     android:scaleType="centerCrop"
-                    app:srcUrl="@{movieItem.imagePath}"
+                    app:srcUrl="@{movieItem.posterImage}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

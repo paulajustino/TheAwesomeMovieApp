@@ -1,4 +1,4 @@
-package com.example.theawesomemovieapp.data
+package com.example.theawesomemovieapp.model.response
 
 import com.squareup.moshi.JsonClass
 

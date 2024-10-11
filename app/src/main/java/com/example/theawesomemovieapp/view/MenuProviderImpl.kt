@@ -1,4 +1,4 @@
-package com.example.theawesomemovieapp
+package com.example.theawesomemovieapp.view
 
 import android.view.Menu
 import android.view.MenuInflater
@@ -7,6 +7,7 @@ import androidx.core.view.MenuProvider
 import androidx.navigation.NavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
+import com.example.theawesomemovieapp.R
 
 class MenuProviderImpl(
     private val navController: NavController,

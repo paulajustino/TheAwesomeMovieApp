@@ -15,7 +15,7 @@
         android:theme="@style/Theme.TheAwesomeMovieApp.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.TheAwesomeMovieApp.NoActionBar">
             <intent-filter>

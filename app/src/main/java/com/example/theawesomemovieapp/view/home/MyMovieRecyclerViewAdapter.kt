@@ -1,10 +1,10 @@
-package com.example.theawesomemovieapp.movieHome
+package com.example.theawesomemovieapp.view.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.theawesomemovieapp.data.MovieResponse
 import com.example.theawesomemovieapp.databinding.FragmentMovieBinding
+import com.example.theawesomemovieapp.model.data.Movie
 
 interface MovieItemListener {
     fun onItemSelected(position: Int)
@@ -14,13 +14,9 @@ class MyMovieRecyclerViewAdapter(
     private val listener: MovieItemListener,
 ) : RecyclerView.Adapter<MyMovieRecyclerViewAdapter.ViewHolder>() {
 
-    private var values: List<MovieResponse> = ArrayList()
+    private var values: List<Movie> = ArrayList()
 
-    fun updateData(movieList: List<MovieResponse>) {
-/*        values.apply {
-            clear()
-            addAll(movieList)
-        }*/
+    fun updateData(movieList: List<Movie>) {
         values = movieList
         notifyDataSetChanged()
     }
@@ -54,7 +50,7 @@ class MyMovieRecyclerViewAdapter(
         RecyclerView.ViewHolder(binding.root) {
         val view = binding.root
 
-        fun bindItem(item: MovieResponse) {
+        fun bindItem(item: Movie) {
             binding.movieItem = item
             // executePendingBindings() para nao esperar até o próximo ciclo de redesenho da tela
             // para atualizar a informação do item e garantir que os dados estao corretos

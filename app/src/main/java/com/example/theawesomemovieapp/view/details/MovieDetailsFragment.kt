@@ -1,4 +1,4 @@
-package com.example.theawesomemovieapp.movieDetails
+package com.example.theawesomemovieapp.view.details
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.navGraphViewModels
-import com.example.theawesomemovieapp.MovieDetailsViewModel
 import com.example.theawesomemovieapp.R
 import com.example.theawesomemovieapp.databinding.FragmentMovieDetailsBinding
 import com.example.theawesomemovieapp.utils.load
-import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
+import com.example.theawesomemovieapp.viewmodel.details.MovieDetailsViewModel
 
 class MovieDetailsFragment : Fragment() {
 
@@ -24,7 +23,7 @@ class MovieDetailsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         movieId = requireArguments().getString("movieId") ?: ""
-        viewModel.setMovieId(movieId)
+        viewModel.getMovieDetailsAndImages(movieId)
     }
 
     override fun onCreateView(
@@ -47,20 +46,22 @@ class MovieDetailsFragment : Fragment() {
     }
 
     private fun initObservers() {
-        viewModel.movieDetailsWithImagesLiveData.observe(viewLifecycleOwner) { (movieDetails, movieImages) ->
-            if (movieDetails != null && !movieImages.isNullOrEmpty()) {
-                binding.movieTitle.text = movieDetails.title
-                binding.movieImageView.load(movieDetails.imagePath)
-                binding.movieContent.text = movieDetails.content
-                binding.movieRatingBar.rating = movieDetails.rating/2
-
-                val carouselItems = movieImages.map { CarouselItem(it) }
-                binding.carousel.setData(carouselItems)
-                if (binding.carousel.getData().isNullOrEmpty())
-                    binding.carousel.visibility = View.GONE
-                else
-                    binding.carousel.visibility = View.VISIBLE
+        viewModel.movieDetailsLiveData.observe(viewLifecycleOwner) { movie ->
+            movie?.let {
+                with(binding) {
+                    movieTitle.text = it.title
+                    movieImageView.load(it.posterImage)
+                    movieContent.text = it.content
+                    movieRatingBar.rating = it.rating
+                    it.carouselImages?.let { images ->
+                        carousel.setData(images)
+                        carousel.visibility = View.VISIBLE
+                    } ?: run {
+                        carousel.visibility = View.GONE
+                    }
+                }
             }
+
         }
     }
 }

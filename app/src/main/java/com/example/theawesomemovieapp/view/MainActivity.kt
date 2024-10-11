@@ -1,4 +1,4 @@
-package com.example.theawesomemovieapp
+package com.example.theawesomemovieapp.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +9,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.theawesomemovieapp.R
 import com.example.theawesomemovieapp.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
 

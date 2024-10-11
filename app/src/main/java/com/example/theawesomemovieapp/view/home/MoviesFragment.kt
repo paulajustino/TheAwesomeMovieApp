@@ -1,4 +1,4 @@
-package com.example.theawesomemovieapp.movieHome
+package com.example.theawesomemovieapp.view.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.theawesomemovieapp.MovieHomeViewModel
 import com.example.theawesomemovieapp.R
-import com.example.theawesomemovieapp.data.MovieResponse
 import com.example.theawesomemovieapp.databinding.FragmentMovieListBinding
+import com.example.theawesomemovieapp.model.data.Movie
+import com.example.theawesomemovieapp.viewmodel.home.MoviesViewModel
 
 class MoviesFragment : Fragment(), MovieItemListener {
 
     private var columnCount = 1
     private lateinit var binding: FragmentMovieListBinding
     private lateinit var adapter: MyMovieRecyclerViewAdapter
-    private val viewModel by navGraphViewModels<MovieHomeViewModel>(R.id.movie_app_graph) {
+    private val viewModel by navGraphViewModels<MoviesViewModel>(R.id.movie_app_graph) {
         defaultViewModelProviderFactory
     }
-    private lateinit var movieList: List<MovieResponse>
+    private lateinit var movieList: List<Movie>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

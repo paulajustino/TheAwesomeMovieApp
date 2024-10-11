@@ -1,9 +1,9 @@
-package com.example.theawesomemovieapp.utils
+package com.example.theawesomemovieapp.model.api
 
-import com.example.theawesomemovieapp.data.MovieImageListResponse
-import com.example.theawesomemovieapp.data.MovieListResponse
-import com.example.theawesomemovieapp.data.MovieResponse
-import retrofit2.Call
+import com.example.theawesomemovieapp.model.response.MovieImageListResponse
+import com.example.theawesomemovieapp.model.response.MovieListResponse
+import com.example.theawesomemovieapp.model.response.MovieResponse
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -11,23 +11,23 @@ import retrofit2.http.Query
 interface TMDBApiService {
 
     @GET("movie/popular")
-    fun getLatestMovieList(
+    suspend fun getLatestMovieList(
         @Query("api_key") apiKey: String,
         @Query("language") language: String = "pt-BR",
         @Query("page") page: Int = 1
-    ): Call<MovieListResponse>
+    ): Response<MovieListResponse>
 
     @GET("movie/{movie_id}")
-    fun getMovieDetails(
+    suspend fun getMovieDetails(
         @Path("movie_id") movieId: Int,
         @Query("api_key") apiKey: String,
         @Query("language") language: String = "pt-BR",
         @Query("page") page: Int = 1
-    ): Call<MovieResponse>
+    ): Response<MovieResponse>
 
     @GET("movie/{movie_id}/images")
-    fun getMovieImages(
+    suspend fun getMovieImages(
         @Path("movie_id") movieId: Int,
         @Query("api_key") apiKey: String
-    ) : Call<MovieImageListResponse>
+    ): Response<MovieImageListResponse>
 }
