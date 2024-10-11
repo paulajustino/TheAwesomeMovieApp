@@ -46,3 +46,14 @@
 - MediatorLiveData
 - Carousel
 - RatingBar
+
+<h2>Version 4.0</h2>
+
+### Topics studied in this version:
+
+- Asynchronous Programming
+- Coroutines
+- Async and Await
+- Refactoring
+- MVVM architecture
+

@@ -8,6 +8,7 @@ import com.example.theawesomemovieapp.model.mapper.MovieResponseToModelMapper
 import com.example.theawesomemovieapp.utils.NetworkError
 import com.example.theawesomemovieapp.utils.Result
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 
 class MovieDetailsRepositoryImpl : MovieDetailsRepository {
@@ -16,10 +17,12 @@ class MovieDetailsRepositoryImpl : MovieDetailsRepository {
     override suspend fun getMovieDetailsAndImages(movieId: String): Result<Movie, NetworkError> {
         return withContext(Dispatchers.IO) {
             try {
-                val movieDetailsResponse =
+                val movieDetailsResponse = async {
                     apiService.getMovieDetails(movieId.toInt(), apiKey = BuildConfig.TMDB_API_KEY)
-                val movieImagesResponse =
+                }.await()
+                val movieImagesResponse = async {
                     apiService.getMovieImages(movieId.toInt(), apiKey = BuildConfig.TMDB_API_KEY)
+                }.await()
 
                 if (movieDetailsResponse.isSuccessful) {
                     movieDetailsResponse.body()?.let { movieDetails ->
