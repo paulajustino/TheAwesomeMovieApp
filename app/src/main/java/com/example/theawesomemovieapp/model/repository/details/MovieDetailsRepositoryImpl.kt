@@ -42,6 +42,7 @@ class MovieDetailsRepositoryImpl : MovieDetailsRepository {
                     Result.Error(NetworkError())
                 }
             } catch (e: Exception) {
+                e.printStackTrace()
                 Result.Error(NetworkError(e.message))
             }
         }

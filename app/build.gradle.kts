@@ -17,7 +17,7 @@ android {
         minSdk = 24
         targetSdk = 34
         versionCode = 4
-        versionName = "4.0"
+        versionName = "5.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -86,4 +86,12 @@ dependencies {
     // Coroutines
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
+
+    // Room
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.roomKsp)
+
+    // Gson
+    implementation(libs.gson)
 }

@@ -1,15 +1,17 @@
 package com.example.theawesomemovieapp.viewmodel.home
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.theawesomemovieapp.database.AppDataBase
 import com.example.theawesomemovieapp.model.data.Movie
 import com.example.theawesomemovieapp.model.repository.home.MoviesRepositoryImpl
 import com.example.theawesomemovieapp.utils.DataState
 import com.example.theawesomemovieapp.utils.Result
 import kotlinx.coroutines.launch
 
-class MoviesViewModel : ViewModel() {
+class MoviesViewModel(application: Application) : AndroidViewModel(application) {
 
     var movieListLiveData = MutableLiveData<List<Movie>>()
         private set
@@ -20,7 +22,8 @@ class MoviesViewModel : ViewModel() {
     var appState = MutableLiveData<DataState>()
         private set
 
-    private val repository = MoviesRepositoryImpl()
+    private val appDataBase = AppDataBase.getDataBase(application)
+    private val repository = MoviesRepositoryImpl(appDataBase)
 
     init {
         getLatestMovieList()

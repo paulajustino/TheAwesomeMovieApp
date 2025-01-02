@@ -1,9 +1,12 @@
 package com.example.theawesomemovieapp.model.data
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 
+@Entity
 data class Movie(
-    val id: Int,
+    @PrimaryKey val id: Int,
     val title: String,
     val posterImage: String?,
     val content: String,

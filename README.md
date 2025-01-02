@@ -57,3 +57,13 @@
 - Refactoring
 - MVVM architecture
 
+<h2>Version 5.0</h2>
+
+### Topics studied in this version:
+
+- Data Persistence
+- Room
+- Refactoring
+- MVVM architecture
+
+
