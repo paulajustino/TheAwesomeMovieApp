@@ -8,7 +8,7 @@
         <import type ="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.example.theawesomemovieapp.viewmodel.home.MoviesViewModel" />
+            type="com.example.theawesomemovieapp.ui.viewmodel.home.MoviesViewModel" />
     </data>
 
     <LinearLayout
@@ -35,7 +35,7 @@
             android:layout_height="match_parent"
             android:visibility="@{viewModel.appState == DataState.Success ? View.VISIBLE : View.GONE}"
             app:layoutManager="LinearLayoutManager"
-            tools:context=".view.home.MoviesFragment"
+            tools:context=".ui.view.home.MoviesFragment"
             tools:listitem="@layout/fragment_movie" />
     </LinearLayout>
 </layout>

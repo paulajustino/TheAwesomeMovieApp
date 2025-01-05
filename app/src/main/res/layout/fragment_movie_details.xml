@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.theawesomemovieapp.viewmodel.details.MovieDetailsViewModel" />
+            type="com.example.theawesomemovieapp.ui.viewmodel.details.MovieDetailsViewModel" />
     </data>
 
     <LinearLayout
@@ -21,7 +21,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:padding="10dp"
-        tools:context=".view.details.MovieDetailsFragment">
+        tools:context=".ui.view.details.MovieDetailsFragment">
 
         <include
             android:id="@+id/progressBar"

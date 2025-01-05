@@ -7,7 +7,7 @@
 
         <variable
             name="movieItem"
-            type="com.example.theawesomemovieapp.model.data.Movie" />
+            type="com.example.theawesomemovieapp.ui.model.Movie" />
     </data>
 
     <LinearLayout

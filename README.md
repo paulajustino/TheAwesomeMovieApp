@@ -66,4 +66,13 @@
 - Refactoring
 - MVVM architecture
 
+<h2>Version 6.0</h2>
+
+### Topics studied in this version:
+
+- Design Patterns
+- Repository
+- Data Source
+- Refactoring
+- MVVM architecture
 
