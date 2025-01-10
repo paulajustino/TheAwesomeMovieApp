@@ -1,34 +1,56 @@
 package com.example.theawesomemovieapp.data.repository.home
 
-import android.content.Context
-import com.example.theawesomemovieapp.data.local.MoviesLocalDataSourceImpl
-import com.example.theawesomemovieapp.data.remote.home.MoviesRemoteDataSourceImpl
-import com.example.theawesomemovieapp.ui.model.Movie
-import com.example.theawesomemovieapp.utils.NetworkError
+import com.example.theawesomemovieapp.data.mapper.MovieResponseToModelMapper
+import com.example.theawesomemovieapp.data.preferences.CachePreferences
+import com.example.theawesomemovieapp.data.source.local.home.MoviesLocalDataSource
+import com.example.theawesomemovieapp.data.source.remote.home.MoviesRemoteDataSource
+import com.example.theawesomemovieapp.domain.model.Movie
+import com.example.theawesomemovieapp.utils.Constants.MOVIES_CACHE_KEY
 import com.example.theawesomemovieapp.utils.Result
+import javax.inject.Inject
 
-class MoviesRepositoryImpl(context: Context) : MoviesRepository {
-    private val remoteDataSource = MoviesRemoteDataSourceImpl()
-    private val localDataSource = MoviesLocalDataSourceImpl(context)
+class MoviesRepositoryImpl @Inject constructor(
+    private val remoteDataSource: MoviesRemoteDataSource,
+    private val localDataSource: MoviesLocalDataSource,
+    private val cachePreferences: CachePreferences
+) : MoviesRepository {
+    override suspend fun getLatestMovieList(): Result<List<Movie>, String> {
+        return try {
+            val localMovies = localDataSource.getLocalMoviesData()
+            if (!cachePreferences.isCacheExpired(MOVIES_CACHE_KEY) && !localMovies.isNullOrEmpty()) {
+                Result.Success(localMovies)
+            } else {
+                when (val movieListResponse = remoteDataSource.fetchLatestMovieList()) {
+                    is Result.Success -> {
+                        val movies = movieListResponse.data.movies.map {
+                            MovieResponseToModelMapper.mapMovieResponseToMovie(it)
+                        }
+                        persistMoviesData(movies)
+                        updateCacheLastUpdateTime()
+                        Result.Success(movies)
+                    }
 
-    override suspend fun getLatestMovieList(): Result<List<Movie>, NetworkError> {
-        val localMovies = localDataSource.getLocalMoviesData()
-        if (!localMovies.isNullOrEmpty())
-            return Result.Success(localMovies)
-
-        val movieListResponse = remoteDataSource.fetchLatestMovieList()
-        if (movieListResponse is Result.Success) {
-            persistMoviesData(movieListResponse.value)
-
-            return movieListResponse
-        } else {
-            return Result.Error(NetworkError())
+                    is Result.Error -> Result.Error(movieListResponse.error)
+                }
+            }
+        } catch (e: Exception) {
+            Result.Error(e.message.orEmpty())
         }
     }
 
-    private suspend fun persistMoviesData(movieList: List<Movie>) {
-        localDataSource.clearMoviesData()
-        localDataSource.saveMoviesData(movieList)
+    private fun updateCacheLastUpdateTime() {
+        cachePreferences.setLastUpdateTime(MOVIES_CACHE_KEY, System.currentTimeMillis())
     }
 
+    private suspend fun persistMoviesData(movieList: List<Movie>) {
+        val moviesIds = movieList.map { it.id }
+
+        // Excluir filmes que não estão na nova lista
+        localDataSource.clearOldMoviesData(moviesIds)
+
+        // Adicionar ou atualizar os filmes da nova lista
+        movieList.forEach { movie ->
+            localDataSource.saveOrUpdateMovieData(movie)
+        }
+    }
 }

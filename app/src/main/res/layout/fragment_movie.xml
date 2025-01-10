@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-
-        <variable
-            name="movieItem"
-            type="com.example.theawesomemovieapp.ui.model.Movie" />
-    </data>
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +24,6 @@
                     android:layout_height="200dp"
                     android:contentDescription="@string/movie_imageView_content_description"
                     android:scaleType="centerCrop"
-                    app:srcUrl="@{movieItem.posterImage}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -42,14 +33,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/text_margin"
-                    android:textSize="24sp"
-                    android:text="@{movieItem.title}"
                     android:textAppearance="?attr/textAppearanceListItem"
                     android:textColor="#050505"
+                    android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/movieImageView"
-                    tools:text="titulo teste" />
+                    app:layout_constraintTop_toBottomOf="@id/movieImageView" />
 
                 <TextView
                     android:id="@+id/movieContent"
@@ -58,14 +47,12 @@
                     android:layout_margin="@dimen/text_margin"
                     android:ellipsize="end"
                     android:maxLength="140"
-                    android:textSize="18sp"
-                    android:text="@{movieItem.content}"
                     android:textAppearance="?attr/textAppearanceListItem"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@id/shareButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/movieTitle"
-                    tools:text="Aqui está um texto com exatamente 140 caracteres! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididundda" />
+                    app:layout_constraintTop_toBottomOf="@+id/movieTitle" />
 
                 <ImageButton
                     android:id="@+id/shareButton"
@@ -79,7 +66,6 @@
                     android:src="@drawable/ic_share"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>

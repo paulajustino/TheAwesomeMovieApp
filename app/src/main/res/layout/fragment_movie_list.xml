@@ -3,14 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <import type="com.example.theawesomemovieapp.utils.DataState"/>
-        <import type ="android.view.View"/>
-        <variable
-            name="viewModel"
-            type="com.example.theawesomemovieapp.ui.viewmodel.home.MoviesViewModel" />
-    </data>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,23 +11,20 @@
         android:orientation="vertical">
 
         <include
-            android:id="@+id/progressBar"
-            layout="@layout/loading_view"
-            android:visibility="@{viewModel.appState == DataState.Loading ? View.VISIBLE : View.GONE}"/>
+            android:id="@+id/moviesProgressBar"
+            layout="@layout/loading_view" />
 
         <include
-            android:id="@+id/errorMessage"
-            layout="@layout/error_view"
-            android:visibility="@{viewModel.appState == DataState.Error ? View.VISIBLE : View.GONE}"/>
+            android:id="@+id/moviesErrorMessage"
+            layout="@layout/error_view" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movieList"
             android:name="com.example.theawesomemovieapp.MoviesFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="@{viewModel.appState == DataState.Success ? View.VISIBLE : View.GONE}"
             app:layoutManager="LinearLayoutManager"
-            tools:context=".ui.view.home.MoviesFragment"
+            tools:context=".presentation.view.home.MoviesFragment"
             tools:listitem="@layout/fragment_movie" />
     </LinearLayout>
 </layout>

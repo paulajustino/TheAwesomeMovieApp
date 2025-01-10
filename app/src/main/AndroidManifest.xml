@@ -13,9 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TheAwesomeMovieApp.NoActionBar"
+        android:name=".TheAwesomeMovieApplication"
         tools:targetApi="31">
         <activity
-            android:name=".ui.view.MainActivity"
+            android:name=".presentation.view.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.TheAwesomeMovieApp.NoActionBar">
             <intent-filter>

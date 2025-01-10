@@ -76,3 +76,19 @@
 - Refactoring
 - MVVM architecture
 
+<h2>Version 7.0</h2>
+
+### Topics studied in this version:
+
+- SOLID principles
+- Inversion of control principle
+- Dependency injection
+- Hilt
+- Unit tests
+- Mock
+- JUnit
+- Refactoring
+- MVVM architecture
+- Cache
+- UseCase
+

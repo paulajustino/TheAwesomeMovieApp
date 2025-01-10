@@ -3,10 +3,8 @@ package com.example.theawesomemovieapp.utils
 import android.content.res.Resources
 import android.view.ViewTreeObserver
 import android.widget.ImageView
-import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
-@BindingAdapter("srcUrl")
 fun ImageView.load(posterPath: String?) {
     if (!posterPath.isNullOrEmpty()) {
         // listener que acessa width do imageView quando o layout é construído

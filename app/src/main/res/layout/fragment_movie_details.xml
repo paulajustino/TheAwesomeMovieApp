@@ -3,17 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <import type="com.example.theawesomemovieapp.utils.DataState" />
-
-        <import type="android.view.View" />
-
-        <variable
-            name="viewModel"
-            type="com.example.theawesomemovieapp.ui.viewmodel.details.MovieDetailsViewModel" />
-    </data>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,31 +10,29 @@
         android:gravity="center"
         android:orientation="vertical"
         android:padding="10dp"
-        tools:context=".ui.view.details.MovieDetailsFragment">
-
-        <include
-            android:id="@+id/progressBar"
-            layout="@layout/loading_view"
-            android:visibility="@{viewModel.appState == DataState.Loading ? View.VISIBLE : View.GONE}" />
-
-        <include
-            android:id="@+id/errorMessage"
-            layout="@layout/error_view"
-            android:visibility="@{viewModel.appState == DataState.Error ? View.VISIBLE : View.GONE}" />
+        tools:context=".presentation.view.details.MovieDetailsFragment">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/movieDetailsCardView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="@{viewModel.appState == DataState.Success ? View.VISIBLE : View.GONE}">
+            android:layout_height="match_parent">
 
+            <!-- Componente que possui os detalhes do filme -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
+
+                <include
+                    android:id="@+id/detailsProgressBar"
+                    layout="@layout/loading_view" />
+
+                <include
+                    android:id="@+id/detailsErrorMessage"
+                    layout="@layout/error_view" />
 
                 <ImageView
                     android:id="@+id/movieImageView"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:contentDescription="@string/movie_imageView_content_description"
                     android:scaleType="centerCrop"
@@ -60,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:orientation="horizontal"
-                    app:layout_constraintBottom_toTopOf="@id/movie_content"
+                    app:layout_constraintBottom_toTopOf="@id/movieContent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/movieImageView">
@@ -75,14 +62,13 @@
                         android:textAppearance="?attr/textAppearanceListItem"
                         android:textColor="@color/black"
                         android:textSize="24sp"
-                        app:layout_constraintBottom_toTopOf="@id/movie_content"
+                        app:layout_constraintBottom_toTopOf="@id/movieContent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/movieImageView"
-                        tools:text="Titulo Teste" />
+                        app:layout_constraintTop_toBottomOf="@id/movieImageView" />
 
                     <RatingBar
-                        android:id="@+id/movie_ratingBar"
+                        android:id="@+id/movieRatingBar"
                         style="?android:attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -96,34 +82,40 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/movie_content"
+                    android:id="@+id/movieContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:gravity="center_horizontal"
                     android:textAppearance="?attr/textAppearanceListItem"
                     android:textSize="18sp"
-                    android:gravity="center_horizontal"
-                    app:layout_constraintBottom_toTopOf="@id/carousel"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/movieInfo" />
 
+                <!-- Componente que possui o carrossel de imagens do filme -->
+                <include
+                    android:id="@+id/imagesProgressBar"
+                    layout="@layout/loading_view" />
+
+                <include
+                    android:id="@+id/imagesErrorMessage"
+                    layout="@layout/error_view" />
+
                 <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-                    android:id="@+id/carousel"
+                    android:id="@+id/carouselImages"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_marginTop="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:showTopShadow="false"
-                    app:showBottomShadow="false"
                     app:autoPlay="true"
                     app:autoPlayDelay="3000"
                     app:carouselType="BLOCK"
                     app:infiniteCarousel="true"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/movie_content" />
-
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/movieContent"
+                    app:showBottomShadow="false"
+                    app:showTopShadow="false" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>

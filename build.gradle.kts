@@ -5,4 +5,10 @@ plugins {
     alias(libs.plugins.kotlinKapt) apply false
     alias(libs.plugins.navigationSafeArgs) apply false
     alias(libs.plugins.kotlinKsp) apply false
+    alias(libs.plugins.hilt) apply false
 }
+
+/*
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}*/
